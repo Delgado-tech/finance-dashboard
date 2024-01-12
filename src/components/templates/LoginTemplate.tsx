@@ -4,6 +4,8 @@ import { Check, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import Checkbox from "../atoms/checkbox";
+import CheckboxField from "../molecules/checkboxField";
 
 export default function LoginTemplate() {
 	const [divsToRecentrilize, setDivsToRecentrilize] = useState<string[]>([]);
@@ -108,6 +110,8 @@ export default function LoginTemplate() {
 							Manter-se logado
 						</label>
 					</div>
+
+					<CheckboxField id={""} name={""} />
 
 					{/* botão de logar */}
 					<button
