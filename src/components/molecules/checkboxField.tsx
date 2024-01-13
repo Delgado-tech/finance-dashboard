@@ -2,6 +2,7 @@
 
 import { twMerge } from "tailwind-merge";
 import Checkbox from "../atoms/checkbox";
+import { useState } from "react";
 
 interface Props {
 	id: string;
@@ -19,7 +20,9 @@ export default function CheckboxField({
 	return (
 		<div className={twMerge("flex gap-2 items-center", className)}>
 			<Checkbox id={id} name={name} defaultChecked={defaultChecked} />
-			<span>Manter-se logado</span>
+			<label htmlFor={id} className="cursor-pointer select-none">
+				Manter-se logado
+			</label>
 		</div>
 	);
 }

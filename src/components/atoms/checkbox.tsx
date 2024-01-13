@@ -1,7 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<"input"> {
@@ -26,8 +26,11 @@ export default function Checkbox({
 				name={name}
 				type="checkbox"
 				className="hidden"
+				onChange={(event) => {
+					const current = event.target.checked;
+					if (checked !== current) setChecked(event.target.checked);
+				}}
 				checked={checked}
-				onChange={() => {}}
 			/>
 			<span
 				data-checked={checked}

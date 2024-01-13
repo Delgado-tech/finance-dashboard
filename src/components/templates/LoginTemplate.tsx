@@ -100,18 +100,7 @@ export default function LoginTemplate() {
 						</div>
 					</div>
 
-					{/* input chekckbox */}
-					<div className="flex items-center gap-2 text-zinc-600 -mb-2">
-						<input id="checkbox" type="checkbox" name="checkbox" className="hidden" />
-						<span className="bg-teal-600 rounded p-1 text-sm text-white cursor-pointer">
-							<Check size={16} />
-						</span>
-						<label htmlFor="checkbox" className="cursor-pointer">
-							Manter-se logado
-						</label>
-					</div>
-
-					<CheckboxField id={""} name={""} />
+					<CheckboxField id={"ab"} name={"ad"} />
 
 					{/* botão de logar */}
 					<button
