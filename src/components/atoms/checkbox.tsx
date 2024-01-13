@@ -1,13 +1,12 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { ComponentProps, useRef, useState } from "react";
+import { ComponentProps, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<"input"> {
 	id: string;
 	name: string;
-	className?: string;
 	defaultChecked?: boolean;
 }
 

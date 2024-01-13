@@ -1,13 +1,12 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import Checkbox from "../atoms/checkbox";
-import { useState } from "react";
+import Checkbox from "../atoms/Checkbox";
+import { ComponentProps } from "react";
 
-interface Props {
+interface Props extends ComponentProps<"div"> {
 	id: string;
 	name: string;
-	className?: string;
 	defaultChecked?: boolean;
 }
 

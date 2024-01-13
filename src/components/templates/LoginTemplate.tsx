@@ -1,11 +1,11 @@
 "use client";
 
-import { Check, Eye, EyeOff } from "lucide-react";
+import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import Checkbox from "../atoms/checkbox";
-import CheckboxField from "../molecules/checkboxField";
+import { useEffect, useState } from "react";
+import CheckboxField from "../molecules/CheckboxField";
+import Button from "../atoms/button";
 
 export default function LoginTemplate() {
 	const [divsToRecentrilize, setDivsToRecentrilize] = useState<string[]>([]);
@@ -100,17 +100,12 @@ export default function LoginTemplate() {
 						</div>
 					</div>
 
-					<CheckboxField id={"ab"} name={"ad"} />
+					<CheckboxField id={"checkbox"} name={"remember_me"} />
 
 					{/* botão de logar */}
-					<button
-						type="submit"
-						className="bg-teal-600 rounded-lg py-3 hover:bg-teal-500 hover:scale-[101%] hover:shadow-md transition-all w-full"
-					>
-						<span className="flex items-center justify-center gap-4">
-							<span className="text-white">Entrar</span>
-						</span>
-					</button>
+					<Button.Root className="bg-teal-600 hover:bg-teal-500" type="submit">
+						<Button.Content text="Entrar" className="text-white" />
+					</Button.Root>
 
 					<span className="relative flex items-center justify-center my-2">
 						<span className="text-zinc-400 text-sm bg-zinc-100 px-2">
@@ -120,24 +115,20 @@ export default function LoginTemplate() {
 					</span>
 
 					{/* botão de logar com o google */}
-					<a href="#">
-						<button
-							type="button"
-							className="bg-zinc-200 rounded-lg py-3 hover:bg-zinc-300 hover:scale-[101%] hover:shadow-md transition-all w-full mb-4"
-						>
-							<span className="flex items-center justify-center gap-4">
-								<figure>
-									<Image
-										src={"/svg/icon-google.svg"}
-										alt={"logo"}
-										width={24}
-										height={24}
-									/>
-								</figure>
-								<span className="text-zinc-600">Continuar com Google</span>
-							</span>
-						</button>
-					</a>
+					<Button.Root>
+						<Button.Icon
+							icon={
+								<Image
+									src={"/svg/icon-google.svg"}
+									alt={"logo"}
+									width={24}
+									height={24}
+								/>
+							}
+						/>
+						<Button.Content text="Continuar com Google" />
+					</Button.Root>
+
 					<span className="text-center">
 						<Link
 							href={"/register"}
