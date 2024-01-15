@@ -7,5 +7,10 @@ interface Props extends ComponentProps<"span"> {
 }
 
 export default function ButtonContent({ text, className, children }: Props) {
-	return <span className={twMerge("text-zinc-600", className)}>{text}</span>;
+	return (
+		<span className={twMerge("text-zinc-600", className)}>
+			{text}
+			{children}
+		</span>
+	);
 }
