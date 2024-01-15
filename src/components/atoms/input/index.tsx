@@ -1,9 +1,13 @@
-import InputIcon from "./InputIcon";
 import InputRoot from "./InputRoot";
+import InputBody from "./InputBody";
+import InputLabelToTop from "./InputLabelToTop";
+import InputPasswordIcon from "./InputPasswordIcon";
 
 const Input = {
 	Root: InputRoot,
-	Icon: InputIcon,
+	Body: InputBody,
+	LabelToTop: InputLabelToTop,
+	PasswordIcon: InputPasswordIcon,
 };
 
 export default Input;

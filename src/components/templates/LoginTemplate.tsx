@@ -9,6 +9,10 @@ import Button from "../atoms/button";
 import TraceText from "../atoms/TraceText";
 import TextLogo from "../atoms/TextLogo";
 import InputRoot from "../atoms/input/InputRoot";
+import InputLabelToTop from "../atoms/input/InputLabelToTop";
+import InputPasswordIcon from "../atoms/input/InputPasswordIcon";
+import InputBody from "../atoms/input/InputBody";
+import InputPasswordField from "../molecules/InputPasswordField";
 
 export default function LoginTemplate() {
 	const [divsToRecentrilize, setDivsToRecentrilize] = useState<string[]>([]);
@@ -72,7 +76,7 @@ export default function LoginTemplate() {
 					</div>
 
 					{/* input senha */}
-					<InputRoot />
+					<InputPasswordField id="password" />
 
 					<CheckboxField id={"checkbox"} name={"remember_me"} />
 
