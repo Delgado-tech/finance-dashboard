@@ -21,7 +21,7 @@ export default function InputBody({
 			value={value}
 			onChange={onChange}
 			className={twMerge(
-				"outline-none rounded-lg pl-4 pr-10 py-3 border text-zinc-600 border-zinc-400 focus:border-teal-600 bg-transparent w-full",
+				"outline-none rounded-lg px-4 py-3 border text-zinc-600 border-zinc-400 focus:border-teal-600 bg-transparent w-full",
 				className
 			)}
 		/>

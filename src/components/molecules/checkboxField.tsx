@@ -6,13 +6,13 @@ import { ComponentProps } from "react";
 
 interface Props extends ComponentProps<"div"> {
 	id: string;
-	name: string;
+	name?: string;
 	defaultChecked?: boolean;
 }
 
 export default function CheckboxField({
 	id,
-	name,
+	name = id,
 	className,
 	defaultChecked = false,
 }: Props) {

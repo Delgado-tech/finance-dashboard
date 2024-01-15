@@ -17,13 +17,13 @@ export default function InputLabelToTop({
 		<span
 			data-label-top={ltToggle}
 			className={twMerge(
-				`absolute rounded-lg translate-y-[13px] px-2 left-[9px] cursor-pointer text-zinc-500 transition-all
+				`absolute rounded-lg translate-y-[13px] px-2 left-[9px] cursor-text text-zinc-500 transition-all
 					data-[label-top=true]:bg-zinc-100 data-[label-top=true]:-translate-y-1/2 
 					data-[label-top=true]:text-sm`,
 				className
 			)}
 		>
-			<label className="font-medium" htmlFor={htmlFor}>
+			<label className="font-medium select-none cursor-text" htmlFor={htmlFor}>
 				{label}
 			</label>
 		</span>

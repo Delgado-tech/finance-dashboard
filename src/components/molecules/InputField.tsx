@@ -3,37 +3,31 @@
 import { ComponentProps, useState } from "react";
 import Input from "../atoms/input";
 
-interface Props extends ComponentProps<"div"> {
+interface Props extends ComponentProps<"input"> {
 	id: string;
 	name?: string;
 	label?: string;
 	defaultValue?: string;
 }
 
-export default function InputPasswordField({
+export default function InputField({
 	id,
 	name,
-	label = "Senha",
+	type = "text",
+	label = id,
 	defaultValue = "",
 }: Props) {
 	const [input, setInput] = useState<string>(defaultValue);
-	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	return (
 		<Input.Root>
 			<Input.LabelToTop ltToggle={input.length > 0} label={label} htmlFor={id} />
 
-			<Input.PasswordIcon
-				showPassword={showPassword}
-				action={() => setShowPassword((prev) => !prev)}
-			/>
-
 			<Input.Body
 				id={id}
 				name={name}
-				type={showPassword ? "text" : "password"}
+				type={type}
 				onChange={(e) => setInput(e.target.value)}
-				className="pr-10"
 			/>
 		</Input.Root>
 	);
