@@ -10,14 +10,14 @@ export default function TraceText({ text, traceColor, className }: Props) {
 	return (
 		<span className="relative flex items-center justify-center">
 			<span
-				className={twMerge("text-zinc-400 text-sm bg-zinc-100 px-2", className)}
+				className={twMerge("bg-zinc-100 px-2 text-sm text-zinc-400", className)}
 			>
 				{text}
 			</span>
 			<span
 				className={twMerge(
-					"absolute bg-zinc-300 w-[calc(100%-2rem)] h-[1px] left-4 -z-10",
-					traceColor
+					"absolute left-4 -z-10 h-[1px] w-[calc(100%-2rem)] bg-zinc-300",
+					traceColor,
 				)}
 			/>
 		</span>

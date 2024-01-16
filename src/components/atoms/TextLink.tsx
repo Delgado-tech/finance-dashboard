@@ -11,8 +11,8 @@ export default function TextLink({ text, href = "#", className }: Props) {
 		<Link
 			href={href}
 			className={twMerge(
-				"font-medium text-teal-600 hover:text-teal-500 transition-colors",
-				className
+				"font-medium text-teal-600 transition-colors hover:text-teal-500",
+				className,
 			)}
 		>
 			{text}

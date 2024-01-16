@@ -11,8 +11,8 @@ export default function ButtonRoot({ link, className, children }: Props) {
 	const button = (
 		<button
 			className={twMerge(
-				"bg-zinc-200 flex items-center justify-center gap-4 rounded-lg py-3 hover:bg-zinc-300 hover:scale-[101%] hover:shadow-md transition-all w-full",
-				className
+				"flex w-full items-center justify-center gap-4 rounded-lg bg-zinc-200 py-3 transition-all hover:scale-[101%] hover:bg-zinc-300 hover:shadow-md",
+				className,
 			)}
 		>
 			{children}

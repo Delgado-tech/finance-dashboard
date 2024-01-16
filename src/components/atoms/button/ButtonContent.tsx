@@ -8,7 +8,7 @@ interface Props extends ComponentProps<"span"> {
 
 export default function ButtonContent({ text, className, children }: Props) {
 	return (
-		<span className={twMerge("text-zinc-600", className)}>
+		<span className={twMerge("text-sm text-zinc-600 md:text-base", className)}>
 			{text}
 			{children}
 		</span>

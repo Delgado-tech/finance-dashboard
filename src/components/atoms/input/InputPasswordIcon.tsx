@@ -15,8 +15,8 @@ export default function InputPasswordIcon({
 	return (
 		<span
 			className={twMerge(
-				"absolute m-auto top-1/2 -translate-y-1/2 right-3 cursor-pointer text-zinc-500 select-none",
-				className
+				"absolute right-3 top-1/2 m-auto -translate-y-1/2 cursor-pointer select-none text-zinc-500",
+				className,
 			)}
 			onClick={() => {
 				action();

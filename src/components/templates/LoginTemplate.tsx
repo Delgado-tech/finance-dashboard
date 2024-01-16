@@ -1,18 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TextLink from "../atoms/TextLink";
 import TextLogo from "../atoms/TextLogo";
+import TraceText from "../atoms/TraceText";
+import GoogleButton from "../molecules/GoogleButton";
 import LoginForm from "../organisms/LoginForm";
 
 export default function LoginTemplate() {
 	const [divsToRecentrilize, setDivsToRecentrilize] = useState<string[]>([]);
 
-	const loginSectionId = "login-section";
+	const sectionId = "login-section";
 
 	useEffect(() => {
 		setDivsToRecentrilize((prev) => [
-			...prev.filter((id) => id !== loginSectionId),
-			loginSectionId!,
+			...prev.filter((id) => id !== sectionId),
+			sectionId!,
 		]);
 	}, []);
 
@@ -39,15 +42,26 @@ export default function LoginTemplate() {
 
 	return (
 		<section
-			id={loginSectionId}
-			className="w-full h-screen flex justify-center items-center overflow-auto"
+			id={sectionId}
+			className="flex h-screen w-full items-center justify-center overflow-auto"
 		>
-			<main className="px-4 py-8 w-[clamp(100px,_100%,_400px)]">
+			<main className="flex w-[clamp(100px,_100%,_400px)] flex-col px-4 py-8">
 				{/* logo */}
-				<TextLogo />
+				<TextLogo className="mb-8 md:mb-16" />
 
 				{/* formulário */}
 				<LoginForm />
+
+				<TraceText text="ou entrar com" className="my-6" />
+
+				{/* botão de logar com o google */}
+				<GoogleButton />
+
+				<TextLink
+					text={"Criar uma conta"}
+					href="/register"
+					className="self-center text-xs md:text-sm"
+				/>
 			</main>
 		</section>
 	);
