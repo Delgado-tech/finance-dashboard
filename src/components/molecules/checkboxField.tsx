@@ -21,7 +21,7 @@ export default function CheckboxField({
 			<Checkbox id={id} name={name} defaultChecked={defaultChecked} />
 			<label
 				htmlFor={id}
-				className="cursor-pointer select-none text-sm md:text-base"
+				className="cursor-pointer select-none text-sm sm:text-base"
 			>
 				Manter-se logado
 			</label>

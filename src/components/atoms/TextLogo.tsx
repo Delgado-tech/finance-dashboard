@@ -7,7 +7,7 @@ export default function TextLogo({ className }: Props) {
 	return (
 		<h1
 			className={twMerge(
-				"text-center font-poppins text-2xl text-teal-600 md:text-5xl",
+				"text-center font-poppins text-3xl text-teal-600 sm:text-4xl md:text-5xl",
 				className,
 			)}
 		>

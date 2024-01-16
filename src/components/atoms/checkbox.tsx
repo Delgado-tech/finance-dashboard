@@ -34,12 +34,12 @@ export default function Checkbox({
 			<span
 				data-checked={checked}
 				className={twMerge(
-					"flex size-4 cursor-pointer select-none items-center justify-center rounded text-sm text-white data-[checked=false]:border data-[checked=false]:border-zinc-400 data-[checked=true]:bg-teal-600 md:size-6",
+					"flex size-4 cursor-pointer select-none items-center justify-center rounded text-sm text-white data-[checked=false]:border data-[checked=false]:border-zinc-400 data-[checked=true]:bg-teal-600 sm:size-6",
 					className,
 				)}
 				onClick={() => setChecked((prev) => !prev)}
 			>
-				{checked && <Check className="size-3" />}
+				{checked && <Check className="size-3 sm:size-4" />}
 			</span>
 		</>
 	);

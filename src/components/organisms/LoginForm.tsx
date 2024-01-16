@@ -6,15 +6,15 @@ import InputPasswordField from "../molecules/InputPasswordField";
 
 export default function LoginForm() {
 	return (
-		<form className="flex flex-col gap-4 md:gap-8">
+		<form className="flex flex-col gap-4 sm:gap-8">
 			{/* input email */}
 			<InputField id="email" label="E-mail" type="email" />
 
 			{/* input senha */}
-			<div className="flex flex-col gap-1">
+			<div className="mb-4 flex flex-col gap-1">
 				<TextLink
 					text={"Esqueceu a senha?"}
-					className="self-end text-xs md:text-sm"
+					className="self-end text-xs sm:text-sm"
 				/>
 				<InputPasswordField id="password" />
 			</div>

@@ -47,7 +47,7 @@ export default function LoginTemplate() {
 		>
 			<main className="flex w-[clamp(100px,_100%,_400px)] flex-col px-4 py-8">
 				{/* logo */}
-				<TextLogo className="mb-8 md:mb-16" />
+				<TextLogo className="mb-8 sm:mb-16" />
 
 				{/* formulário */}
 				<LoginForm />
@@ -55,12 +55,12 @@ export default function LoginTemplate() {
 				<TraceText text="ou entrar com" className="my-6" />
 
 				{/* botão de logar com o google */}
-				<GoogleButton />
+				<GoogleButton className="mb-6" />
 
 				<TextLink
 					text={"Criar uma conta"}
 					href="/register"
-					className="self-center text-xs md:text-sm"
+					className="self-center text-xs sm:text-sm"
 				/>
 			</main>
 		</section>

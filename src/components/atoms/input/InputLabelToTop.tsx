@@ -24,7 +24,7 @@ export default function InputLabelToTop({
 			)}
 		>
 			<label
-				className="cursor-text select-none text-sm font-medium md:text-base"
+				className="cursor-text select-none text-sm font-medium sm:text-base"
 				htmlFor={htmlFor}
 			>
 				{label}

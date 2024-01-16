@@ -16,7 +16,7 @@ export default function RegisterTemplate() {
 				{/* logo */}
 				<TextLogo className="mb-4" />
 
-				<h2 className="text-md mb-8 self-center font-medium text-zinc-800 md:text-xl">
+				<h2 className="text-md mb-8 self-center font-medium text-zinc-800 sm:text-lg">
 					Cria uma conta
 				</h2>
 
@@ -26,9 +26,9 @@ export default function RegisterTemplate() {
 				<TraceText text="ou criar com" className="my-6" />
 
 				{/* botão de logar com o google */}
-				<GoogleButton />
+				<GoogleButton className="mb-6" />
 
-				<p className="self-center text-xs md:text-sm">
+				<p className="self-center text-xs sm:text-sm">
 					Já possui uma conta? <TextLink text="Entrar" href="/login" />
 				</p>
 			</main>

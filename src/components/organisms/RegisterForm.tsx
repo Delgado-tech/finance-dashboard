@@ -15,7 +15,7 @@ export default function RegisterForm() {
 			<InputPasswordField id="password" />
 
 			<span>
-				<p className="mb-2 text-center text-xs md:text-sm">
+				<p className="mb-4 text-center text-xs sm:text-sm">
 					Para prosseguir, você concorda com os <TextLink text="termos de serviço" />
 				</p>
 
