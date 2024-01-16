@@ -14,6 +14,7 @@ export default function LoginForm() {
 			<div className="mb-4 flex flex-col gap-1">
 				<TextLink
 					text={"Esqueceu a senha?"}
+					href={"/reset-password"}
 					className="self-end text-xs sm:text-sm"
 				/>
 				<InputPasswordField id="password" />
