@@ -4,7 +4,6 @@ import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<"button"> {
 	link?: string;
-	children: React.ReactNode;
 }
 
 export default function ButtonRoot({ link, className, children }: Props) {
