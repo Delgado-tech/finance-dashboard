@@ -1,7 +1,7 @@
+import Sidebar from "@/components/organisms/Sidebar";
 import getAuthorization from "@/utils/getAuthorization";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { redirect } from "next/navigation";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,12 +17,17 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }) {
 	if (!(await getAuthorization()).success) {
-		redirect("/login");
+		//redirect("/login");
 	}
 
 	return (
-		<html lang="en">
-			<body className={inter.className}>{children}</body>
+		<html lang="pt-br">
+			<body className={inter.className}>
+				<div className="flex gap-8">
+					<Sidebar />
+					{children}
+				</div>
+			</body>
 		</html>
 	);
 }
