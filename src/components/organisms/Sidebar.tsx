@@ -49,7 +49,7 @@ export default function Sidebar({}: Props) {
 			link: "/dashboard/transactions",
 			icon: <ArrowRightLeft />,
 		},
-		{ text: "Dispesas", link: "/dashboard/expenses", icon: <Receipt /> },
+		{ text: "Despesas", link: "/dashboard/expenses", icon: <Receipt /> },
 		{ text: "Metas", link: "/dashboard/goals", icon: <Crosshair /> },
 		{ text: "Configurações", link: "/dashboard/settings", icon: <Settings /> },
 	];
@@ -57,44 +57,46 @@ export default function Sidebar({}: Props) {
 	return (
 		<section
 			data-shrink={shrinkMode}
-			className="dark-overflow-auto h-screen bg-zinc-800 px-7 py-12 text-zinc-50 data-[shrink=false]:w-80"
+			className="dark-overflow-auto sticky top-0 m-0 h-screen bg-zinc-800 px-7 py-12 text-zinc-50 data-[shrink=false]:w-80"
 		>
-			<nav className="flex flex-col gap-10">
-				{/* Logo */}
-				<div className="cursor-pointer self-center">
-					{shrinkMode ? (
-						<h1 className="text-center font-poppins text-3xl" title="finebank.io">
-							<span className="font-extrabold">F</span>b
-						</h1>
-					) : (
-						<TextLogo className="text-3xl text-white" noPreResponsivity />
-					)}
-				</div>
+			<nav className="flex h-full flex-col justify-between gap-10">
+				<section className="flex flex-col gap-10">
+					{/* Logo */}
+					<div className="cursor-pointer self-center">
+						{shrinkMode ? (
+							<h1 className="text-center font-poppins text-3xl" title="finebank.io">
+								<span className="font-extrabold">F</span>b
+							</h1>
+						) : (
+							<TextLogo className="text-3xl text-white" noPreResponsivity />
+						)}
+					</div>
 
-				{/* Páginas */}
-				<div className="flex flex-col gap-4">
-					{sidebarLinks.map((props, index) => {
-						return (
-							<span key={index} data-shrink={shrinkMode} className="group">
-								<SidebarLink
-									icon={props.icon}
-									text={shrinkMode ? "" : props.text}
-									link={props.link}
-									selected={pathname === props.link}
-									className="group-data-[shrink=true]:w-fit group-data-[shrink=true]:gap-0"
-								/>
-							</span>
-						);
-					})}
-				</div>
+					{/* Páginas */}
+					<div className="flex flex-col gap-4">
+						{sidebarLinks.map((props, index) => {
+							return (
+								<span key={index} data-shrink={shrinkMode} className="group">
+									<SidebarLink
+										icon={props.icon}
+										text={shrinkMode ? "" : props.text}
+										link={props.link}
+										selected={pathname === props.link}
+										className="group-data-[shrink=true]:w-full group-data-[shrink=true]:justify-center group-data-[shrink=true]:gap-0"
+									/>
+								</span>
+							);
+						})}
+					</div>
+				</section>
 
 				{/* Parte inferior */}
-				<section className="flex flex-col gap-12 [@media(min-height:790px)]:absolute [@media(min-height:790px)]:bottom-0">
+				<section className="flex flex-col gap-12">
 					{/* Logout */}
 					<span data-shrink={shrinkMode} className="group">
 						<Button.Root
 							link={"/login"}
-							className="justify-start bg-zinc-700 px-4 hover:bg-zinc-600 group-data-[shrink=true]:gap-0"
+							className="justify-start bg-zinc-700 px-4 hover:bg-zinc-600 group-data-[shrink=true]:justify-center group-data-[shrink=true]:gap-0"
 						>
 							<Button.Icon icon={<LogOut />} className="text-zinc-50" />
 							<Button.Content

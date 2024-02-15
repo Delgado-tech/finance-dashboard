@@ -11,8 +11,10 @@ export default function InputBody({
 	name = id,
 	invalid = false,
 	type,
+	placeholder = "",
 	value,
 	onChange,
+	onKeyDown,
 	className,
 	required,
 }: Props) {
@@ -22,8 +24,11 @@ export default function InputBody({
 			name={name}
 			type={type}
 			value={value}
+			placeholder={placeholder}
 			onChange={onChange}
+			onKeyDown={onKeyDown}
 			data-invalid={invalid}
+			spellCheck={false}
 			className={twMerge(
 				`w-full rounded-lg border border-zinc-400 bg-transparent px-4 py-3 text-zinc-600 outline-none 
 				transition-colors focus:border-teal-600 

@@ -14,7 +14,7 @@ input[type="password"]::-webkit-password-toggle-button {
 }
 
 body {
-	@apply overflow-hidden bg-zinc-100 text-zinc-800;
+	@apply bg-zinc-100 text-zinc-800;
 }
 
 .dark-overflow-auto {

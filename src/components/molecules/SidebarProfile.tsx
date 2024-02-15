@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -14,22 +15,20 @@ export default function SidebarProfile({
 	hideText = false,
 }: Props) {
 	return (
-		<div
+		<Link
+			href={"/dashboard/settings"}
 			data-shrink={hideText}
 			className={twMerge(
 				"group flex items-center gap-4 border-t border-zinc-700 py-8 data-[shrink=true]:justify-center",
 				className,
 			)}
 		>
-			<figure className="flex size-10 cursor-pointer items-center justify-center rounded-full bg-teal-600">
+			<figure className="flex min-h-10 min-w-10 cursor-pointer items-center justify-center rounded-full bg-teal-600">
 				<span>{username.charAt(0)}</span>
 			</figure>
 			{!hideText && (
-				<div>
-					<p
-						className="max-w-48 cursor-pointer truncate font-medium"
-						title={username}
-					>
+				<div className="w-full overflow-hidden">
+					<p className="cursor-pointer truncate font-medium" title={username}>
 						{username}
 					</p>
 					<span className="block cursor-pointer bg-transparent text-sm text-zinc-400 group-hover:text-zinc-100 group-hover:underline">
@@ -37,6 +36,6 @@ export default function SidebarProfile({
 					</span>
 				</div>
 			)}
-		</div>
+		</Link>
 	);
 }

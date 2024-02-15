@@ -13,12 +13,14 @@ export default function ButtonRoot({
 	className,
 	defaultEffects = true,
 	alternativeStyle = false,
+	onClick = () => {},
 	children,
 }: Props) {
 	const button = (
 		<button
 			data-default-effects={defaultEffects}
 			data-alternative-style={alternativeStyle}
+			onClick={onClick}
 			className={twMerge(
 				`flex w-full items-center justify-center gap-4 rounded-lg bg-zinc-200 py-3 transition-all 
 				hover:bg-zinc-300 

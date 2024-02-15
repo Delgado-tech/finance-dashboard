@@ -43,7 +43,7 @@ export default function InputPasswordField({
 				type={showPassword ? "text" : "password"}
 				invalid={invalid}
 				onChange={(e) => setInput(e.target.value)}
-				className={twMerge("tr-10", className)}
+				className={twMerge("pr-10", className)}
 				required
 			/>
 		</Input.Root>

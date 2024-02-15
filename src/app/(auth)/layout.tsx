@@ -23,9 +23,9 @@ export default async function RootLayout({
 	return (
 		<html lang="pt-br">
 			<body className={inter.className}>
-				<div className="flex gap-8">
+				<div className="flex">
 					<Sidebar />
-					{children}
+					<div className="w-full">{children}</div>
 				</div>
 			</body>
 		</html>
