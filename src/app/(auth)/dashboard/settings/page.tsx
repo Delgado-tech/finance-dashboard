@@ -1,4 +1,4 @@
-export default function ExpensesPage() {
+export default function SettingsPage() {
 	return (
 		<main>
 			<p>settings</p>

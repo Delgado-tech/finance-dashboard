@@ -1,11 +1,13 @@
 "use client";
 
+import { transactions } from "@/mock/transactions.mockup";
 import { IDictionary } from "@/types/dictionary";
 import { IRows } from "@/types/table";
 import dFormat from "dateformat";
-import { ArrowBigDown, ArrowBigUp, ChevronsRight } from "lucide-react";
+import { ArrowBigDown, ArrowBigUp } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import SearchInput from "../molecules/SearchInput";
+import DynamicIcon from "../atoms/DynamicIcon";
+import Title from "../atoms/Title";
 import TabList from "../molecules/TabList";
 import Table from "../organisms/Table";
 
@@ -13,8 +15,6 @@ const typeViews = ["all", "revenue", "expenses"];
 type Views = (typeof typeViews)[number];
 
 export default function TransactionsTemplate() {
-	const currentDate = dFormat(new Date(), "mmm dd, yyyy");
-
 	//#region  Configuração dos parâmetros de pesquisa
 	const searchParams = new URLSearchParams(useSearchParams());
 
@@ -32,98 +32,7 @@ export default function TransactionsTemplate() {
 	];
 
 	//#region mockup
-	const mockup = [
-		{
-			item: "Sushi",
-			desc: "Naomi",
-			data: new Date(),
-			met: "Cartão de crédito",
-			valor: "3000",
-			type: "expenses",
-		},
-		{
-			item: "Pagamento",
-			desc: undefined,
-			data: new Date("2023-11-01"),
-			met: "Cartão de crédito",
-			valor: "30000",
-			type: "revenue",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-		{
-			item: "Taco de baseball 2",
-			desc: "Dacathlon",
-			data: new Date("2022-10-02"),
-			met: "PIX",
-			valor: "30000",
-			type: "expenses",
-		},
-	];
-
-	const mockupFiltered = mockup
+	const filteredTransactions = transactions
 		.filter((item) => {
 			if (item.type !== currentView && currentView !== "all") return;
 			if (!item.item.toLowerCase().startsWith(search?.toString().trim() || ""))
@@ -136,9 +45,12 @@ export default function TransactionsTemplate() {
 
 	const header = ["Itens", "Descrição", "Data", "Método de Pagamento", "Valor"];
 
-	const rows: IRows[] = mockupFiltered.map((item) => {
+	const rows: IRows[] = filteredTransactions.map((item) => {
 		const columns: any = [
-			<>{item.item}</>,
+			<span className="flex items-center justify-start gap-2">
+				<DynamicIcon iconName={item.categoryIcon} />
+				{item.item}
+			</span>,
 			<>{item.desc || "---"}</>,
 			<>{dFormat(item.data, "mmm dd, yyyy")}</>,
 			<>{item.met}</>,
@@ -162,29 +74,16 @@ export default function TransactionsTemplate() {
 	});
 
 	return (
-		<section>
-			{/** header */}
-			<header className="flex items-center justify-between gap-8 border border-b-zinc-300 p-8">
-				<div className="flex items-center gap-1 text-zinc-400">
-					<ChevronsRight />
-					<span>{currentDate}</span>
-				</div>
-				<div className="w-full max-w-96">
-					<SearchInput />
-				</div>
-			</header>
-
-			<main className="p-8">
-				<h3 className="mb-4 text-xl text-zinc-500">Transações Recentes</h3>
-				<div>
-					<TabList tabList={views} currentTab={currentView} />
-					<Table
-						header={header}
-						rows={rows}
-						noResultsMessage="Nenhuma transação encontrada!"
-					/>
-				</div>
-			</main>
-		</section>
+		<main className="p-8">
+			<Title text="Transações Recentes" />
+			<div>
+				<TabList tabList={views} currentTab={currentView} />
+				<Table
+					header={header}
+					rows={rows}
+					noResultsMessage="Nenhuma transação encontrada!"
+				/>
+			</div>
+		</main>
 	);
 }

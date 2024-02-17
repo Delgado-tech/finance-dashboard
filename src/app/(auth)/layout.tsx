@@ -1,3 +1,4 @@
+import DashboardHeader from "@/components/organisms/DashboardHeader";
 import Sidebar from "@/components/organisms/Sidebar";
 import getAuthorization from "@/utils/getAuthorization";
 import type { Metadata } from "next";
@@ -20,12 +21,17 @@ export default async function RootLayout({
 		//redirect("/login");
 	}
 
+	const username = "Leonardo";
+
 	return (
 		<html lang="pt-br">
 			<body className={inter.className}>
 				<div className="flex">
 					<Sidebar />
-					<div className="w-full">{children}</div>
+					<div className="w-full">
+						<DashboardHeader username={username} />
+						{children}
+					</div>
 				</div>
 			</body>
 		</html>

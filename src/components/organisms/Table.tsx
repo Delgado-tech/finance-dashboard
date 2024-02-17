@@ -14,7 +14,7 @@ export default function Table({
 	const loadedRows = rows.slice(0, loaded);
 
 	return (
-		<section className="my-4 rounded-lg bg-white px-4">
+		<section className="my-4 rounded-lg bg-white px-4 shadow-sm">
 			<table className="w-full border-collapse">
 				{header && (
 					<thead className="[&_th]:px-2 [&_th]:py-4 [&_th]:text-zinc-700">

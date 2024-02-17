@@ -1,7 +1,5 @@
-export default function SettingsPage() {
-	return (
-		<main>
-			<p>settings</p>
-		</main>
-	);
+import ExpensesTemplate from "@/components/templates/ExpensesTemplate";
+
+export default function ExpensesPage() {
+	return <ExpensesTemplate />;
 }

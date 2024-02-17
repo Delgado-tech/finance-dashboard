@@ -49,7 +49,7 @@ export default function SearchInput({
 			<InputFieldIcon
 				id={id}
 				className={twMerge(
-					"border-none bg-white placeholder:text-zinc-500",
+					"border-none bg-white shadow-sm placeholder:text-zinc-500",
 					className,
 				)}
 				placeholder={placeholder}
