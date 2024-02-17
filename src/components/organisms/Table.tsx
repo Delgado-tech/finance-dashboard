@@ -1,6 +1,5 @@
 import { ITable } from "@/types/table";
-import { useState } from "react";
-import Button from "../atoms/button";
+import { useEffect, useState } from "react";
 
 interface Props extends ITable {}
 
@@ -9,9 +8,33 @@ export default function Table({
 	rows = [],
 	noResultsMessage = "Nenhum resultado encontrado!",
 }: Props) {
-	const loadInterval = 10;
+	const loadInterval = 2;
 	const [loaded, setLoaded] = useState<number>(loadInterval);
 	const loadedRows = rows.slice(0, loaded);
+
+	useEffect(() => {
+		const loadWhenScrollEnd = () => {
+			const isScrollEnd =
+				window.scrollY + window.innerHeight >= document.body.offsetHeight - 10;
+			if (isScrollEnd) {
+				if (loaded < rows.length) {
+					setLoaded(loaded + loadInterval);
+				}
+			}
+		};
+
+		const scrollHandler = () => {
+			loadWhenScrollEnd();
+		};
+
+		window.addEventListener("scroll", scrollHandler);
+
+		if (window.scrollY === 0) {
+			loadWhenScrollEnd();
+		}
+
+		return () => window.removeEventListener("scroll", scrollHandler);
+	}, [loaded]);
 
 	return (
 		<section className="my-4 rounded-lg bg-white px-4 shadow-sm">
@@ -42,19 +65,6 @@ export default function Table({
 			</table>
 			{rows.length === 0 && (
 				<p className="px-2 py-6 text-zinc-600">{noResultsMessage}</p>
-			)}
-			{rows.length > loaded && (
-				<span className="flex justify-center px-2 py-8">
-					<Button.Root
-						className="max-w-96 bg-teal-500 hover:bg-teal-400"
-						onClick={() => setLoaded(loaded + loadInterval)}
-					>
-						<Button.Content
-							text="Carregar mais"
-							className="font-semibold text-white"
-						/>
-					</Button.Root>
-				</span>
 			)}
 		</section>
 	);
