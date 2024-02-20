@@ -1,5 +1,7 @@
+import { useModalContext } from "@/context/ModalContext";
 import { ITable } from "@/types/table";
 import { useEffect, useState } from "react";
+import ModalTransactionEdit from "./modal/ModalTransactionEdit";
 
 interface Props extends ITable {}
 
@@ -11,6 +13,8 @@ export default function Table({
 	const loadInterval = 2;
 	const [loaded, setLoaded] = useState<number>(loadInterval);
 	const loadedRows = rows.slice(0, loaded);
+
+	const modalContext = useModalContext();
 
 	useEffect(() => {
 		const loadWhenScrollEnd = () => {
@@ -37,7 +41,7 @@ export default function Table({
 	}, [loaded]);
 
 	return (
-		<section className="my-4 rounded-lg bg-white px-4 shadow-sm">
+		<section className="my-4 rounded-lg bg-white px-4 pb-4 shadow-sm">
 			<table className="w-full border-collapse">
 				{header && (
 					<thead className="[&_th]:px-2 [&_th]:py-4 [&_th]:text-zinc-700">
@@ -53,11 +57,25 @@ export default function Table({
 						return (
 							<tr
 								key={index}
-								className="border-b border-b-zinc-200 text-center 
+								className="cursor-pointer border-b border-b-zinc-200 
+									text-center transition-all hover:-translate-y-[1px] hover:scale-[101%] hover:bg-zinc-100
                                     first:[&_td]:text-start first:[&_td]:font-bold
                                     last:[&_td]:text-end last:[&_td]:font-bold"
 							>
-								{row.columns?.map((td, index) => <td key={index}>{td}</td>)}
+								{row.columns?.map((td, index) => (
+									<td
+										key={index}
+										onClick={() => {
+											if (modalContext.list.length > 0) {
+												modalContext.closeId("tedit");
+												return;
+											}
+											modalContext.open(<ModalTransactionEdit id={"tedit"} />);
+										}}
+									>
+										{td}
+									</td>
+								))}
 							</tr>
 						);
 					})}

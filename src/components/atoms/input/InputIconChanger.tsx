@@ -1,16 +1,20 @@
-import { Eye, EyeOff, Link } from "lucide-react";
 import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<"span"> {
-	showPassword: boolean;
-	action: Function;
+	icons: {
+		first: React.ReactNode;
+		second: React.ReactNode;
+	};
+	changeIcon: boolean;
+	action?: Function;
 }
 
-export default function InputPasswordIcon({
+export default function InputIconChanger({
+	icons,
 	className,
-	showPassword,
-	action,
+	changeIcon,
+	action = () => {},
 }: Props) {
 	return (
 		<span
@@ -22,7 +26,7 @@ export default function InputPasswordIcon({
 				action();
 			}}
 		>
-			{showPassword ? <EyeOff /> : <Eye />}
+			{changeIcon ? icons.first : icons.second}
 		</span>
 	);
 }

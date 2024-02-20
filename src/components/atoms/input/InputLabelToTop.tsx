@@ -5,6 +5,7 @@ interface Props extends ComponentProps<"span"> {
 	label?: string;
 	htmlFor?: string;
 	ltToggle?: boolean;
+	labelColor?: string;
 	invalid?: boolean;
 }
 
@@ -13,6 +14,7 @@ export default function InputLabelToTop({
 	label = "label",
 	htmlFor = "",
 	ltToggle = false,
+	labelColor = "bg-zinc-100",
 	invalid = false,
 }: Props) {
 	return (
@@ -21,7 +23,7 @@ export default function InputLabelToTop({
 			data-invalid={invalid}
 			className={twMerge(
 				`absolute left-[9px] translate-y-[13px] cursor-text rounded-lg px-2 text-zinc-500 transition-all
-					data-[label-top=true]:-translate-y-1/2 data-[label-top=true]:bg-zinc-100 
+					data-[label-top=true]:-translate-y-1/2 ${labelColor} data-[label-top=false]:bg-transparent
 					data-[label-top=true]:text-sm data-[invalid=true]:text-red-600`,
 				className,
 			)}

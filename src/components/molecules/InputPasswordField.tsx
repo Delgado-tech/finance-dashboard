@@ -1,5 +1,6 @@
 "use client";
 
+import { Eye, EyeOff } from "lucide-react";
 import { ComponentProps, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Input from "../atoms/input";
@@ -32,8 +33,12 @@ export default function InputPasswordField({
 				invalid={invalid}
 			/>
 
-			<Input.PasswordIcon
-				showPassword={showPassword}
+			<Input.IconChanger
+				icons={{
+					first: <EyeOff />,
+					second: <Eye />,
+				}}
+				changeIcon={showPassword}
 				action={() => setShowPassword((prev) => !prev)}
 			/>
 

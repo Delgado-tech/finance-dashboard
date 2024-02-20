@@ -1,5 +1,4 @@
-import DashboardHeader from "@/components/organisms/DashboardHeader";
-import Sidebar from "@/components/organisms/Sidebar";
+import AuthLayoutTemplate from "@/components/templates/AuthLayoutTemplate";
 import getAuthorization from "@/utils/getAuthorization";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -26,13 +25,7 @@ export default async function RootLayout({
 	return (
 		<html lang="pt-br">
 			<body className={inter.className}>
-				<div className="flex">
-					<Sidebar />
-					<div className="w-full">
-						<DashboardHeader username={username} />
-						{children}
-					</div>
-				</div>
+				<AuthLayoutTemplate children={children} username={username} />
 			</body>
 		</html>
 	);

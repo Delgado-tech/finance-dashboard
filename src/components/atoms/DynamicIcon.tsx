@@ -12,12 +12,14 @@ export default function DynamicIcon({ iconName = "LucideAArrowDown" }: Props) {
 	const [dynamicIcon, setDynamicIcon] = useState<React.ReactNode>(<></>);
 
 	useEffect(() => {
-		let search = BinnarySearch.Object(iconName, Object.entries(Icons).sort());
-		if (!search.result) {
-			search = BinnarySearch.Object("AlignCenter", Object.entries(Icons));
-		}
+		const search = BinnarySearch.Object(iconName, Object.entries(Icons).sort());
 
-		const icon = React.createElement(search.result);
+		const icon = search.result ? (
+			React.createElement(search.result)
+		) : (
+			<Icons.AlignCenter />
+		);
+
 		setDynamicIcon(icon);
 	}, [iconName]);
 

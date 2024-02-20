@@ -1,14 +1,10 @@
-import { Eye, EyeOff } from "lucide-react";
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import { twMerge } from "tailwind-merge";
-import InputPasswordIcon from "./InputPasswordIcon";
-import InputLabelToTop from "./InputLabelToTop";
-import InputBody from "./InputBody";
 
 interface Props extends ComponentProps<"div"> {
 	defaultValue?: string;
 }
 
-export default function InputRoot({ children }: Props) {
-	return <div className="relative">{children}</div>;
+export default function InputRoot({ children, className }: Props) {
+	return <div className={twMerge("relative", className)}>{children}</div>;
 }

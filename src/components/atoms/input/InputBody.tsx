@@ -15,7 +15,9 @@ export default function InputBody({
 	value,
 	onChange,
 	onKeyDown,
+	onFocus,
 	className,
+	minLength,
 	required,
 }: Props) {
 	return (
@@ -25,13 +27,16 @@ export default function InputBody({
 			type={type}
 			value={value}
 			placeholder={placeholder}
+			minLength={minLength}
 			onChange={onChange}
 			onKeyDown={onKeyDown}
+			onFocus={onFocus}
 			data-invalid={invalid}
 			spellCheck={false}
+			autoComplete={"off"}
 			className={twMerge(
 				`w-full rounded-lg border border-zinc-400 bg-transparent px-4 py-3 text-zinc-600 outline-none 
-				transition-colors focus:border-teal-600 
+				transition-colors placeholder:font-medium placeholder:text-zinc-500 focus:border-teal-600
 				data-[invalid=true]:border-red-400 data-[invalid=true]:focus:border-red-500`,
 				className,
 			)}

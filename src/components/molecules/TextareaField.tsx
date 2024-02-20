@@ -4,7 +4,7 @@ import { RegexFunctionType } from "@/utils/regex";
 import { ComponentProps, useState } from "react";
 import Input from "../atoms/input";
 
-interface Props extends ComponentProps<"input"> {
+interface Props extends ComponentProps<"textarea"> {
 	id: string;
 	name?: string;
 	label?: string;
@@ -14,15 +14,16 @@ interface Props extends ComponentProps<"input"> {
 	invalid?: boolean;
 }
 
-export default function InputField({
+export default function TextareaField({
 	id,
 	name,
-	type = "text",
 	label = id,
 	labelColor,
 	defaultValue = "",
 	regexFC = (value: string) => value,
 	minLength,
+	maxLength,
+	rows,
 	placeholder,
 	invalid = false,
 	required = false,
@@ -41,14 +42,15 @@ export default function InputField({
 				/>
 			)}
 
-			<Input.Body
+			<Input.TextareaBody
 				id={id}
 				name={name}
-				type={type}
 				placeholder={placeholder}
 				onChange={(e) => setInput(regexFC(e.target.value))}
 				value={input}
+				rows={rows}
 				minLength={minLength}
+				maxLength={maxLength}
 				invalid={invalid}
 				required={required}
 			/>
