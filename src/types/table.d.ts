@@ -5,5 +5,6 @@ export interface ITable {
 }
 
 export interface IRows {
+	id: string;
 	columns?: React.ReactNode[];
 }

@@ -22,7 +22,7 @@ export default function InputLabelToTop({
 			data-label-top={ltToggle}
 			data-invalid={invalid}
 			className={twMerge(
-				`absolute left-[9px] translate-y-[13px] cursor-text rounded-lg px-2 text-zinc-500 transition-all
+				`absolute left-[9px] translate-y-[13px] cursor-default rounded-lg px-2 text-zinc-500 transition-all
 					data-[label-top=true]:-translate-y-1/2 ${labelColor} data-[label-top=false]:bg-transparent
 					data-[label-top=true]:text-sm data-[invalid=true]:text-red-600`,
 				className,

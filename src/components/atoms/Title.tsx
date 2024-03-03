@@ -7,6 +7,6 @@ interface Props extends ComponentProps<"h3"> {
 
 export default function Title({ text, className }: Props) {
 	return (
-		<h3 className={twMerge("mb-4 text-xl text-zinc-500", className)}>{text}</h3>
+		<h3 className={twMerge("my-4 text-xl text-zinc-500", className)}>{text}</h3>
 	);
 }

@@ -20,6 +20,7 @@ export default function InputTextareaBody({
 	minLength,
 	maxLength,
 	maxLenghtCounter = "comparative",
+	disabled = false,
 	required,
 }: Props) {
 	let maxLenghtCounterText: string | undefined;
@@ -33,7 +34,10 @@ export default function InputTextareaBody({
 	}
 
 	return (
-		<div className="rounded-lg border border-zinc-400 pt-1">
+		<div
+			data-disabled={disabled}
+			className="data-disabled rounded-lg border border-zinc-400 pt-1 data-[disabled=true]:bg-zinc-100"
+		>
 			<textarea
 				id={id}
 				name={name}
@@ -45,11 +49,12 @@ export default function InputTextareaBody({
 				minLength={minLength}
 				maxLength={maxLength}
 				data-invalid={invalid}
+				disabled={disabled}
 				spellCheck={false}
 				className={twMerge(
 					`w-full resize-none rounded-lg bg-transparent px-4 py-2 text-zinc-600
-                    outline-none transition-colors placeholder:font-medium placeholder:text-zinc-500
-                    focus:border-teal-600 data-[invalid=true]:border-red-400 data-[invalid=true]:focus:border-red-500`,
+                    outline-none transition-colors placeholder:font-medium placeholder:text-zinc-500 focus:border-teal-600
+                    data-[invalid=true]:border-red-400 data-[invalid=true]:focus:border-red-500`,
 					className,
 				)}
 				required={required}

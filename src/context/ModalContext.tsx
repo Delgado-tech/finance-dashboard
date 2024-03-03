@@ -57,7 +57,7 @@ export function ModalProvider({ children }: Props) {
 export function useModalContext(): IModalContext {
 	const context = useContext(ModalContext);
 	if (!context) {
-		throw new Error("useModal deve ser usado dentro de um ModalContext");
+		throw new Error("useModal deve ser usado dentro de um ModalProvider");
 	}
 	return context;
 }

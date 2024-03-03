@@ -23,6 +23,7 @@ export default function InputField({
 	defaultValue = "",
 	regexFC = (value: string) => value,
 	minLength,
+	disabled,
 	placeholder,
 	invalid = false,
 	required = false,
@@ -50,6 +51,7 @@ export default function InputField({
 				value={input}
 				minLength={minLength}
 				invalid={invalid}
+				disabled={disabled}
 				required={required}
 			/>
 		</Input.Root>

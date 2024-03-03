@@ -8,7 +8,7 @@ interface Props {
 	iconName?: string;
 }
 
-export default function DynamicIcon({ iconName = "LucideAArrowDown" }: Props) {
+export default function DynamicIcon({ iconName = "AlignCenter" }: Props) {
 	const [dynamicIcon, setDynamicIcon] = useState<React.ReactNode>(<></>);
 
 	useEffect(() => {

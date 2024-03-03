@@ -1,49 +1,58 @@
-import { useModalContext } from "@/context/ModalContext";
 import { ITable } from "@/types/table";
-import { useEffect, useState } from "react";
-import ModalTransactionEdit from "./modal/ModalTransactionEdit";
+import { ComponentProps, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
-interface Props extends ITable {}
+interface Props extends ITable, ComponentProps<"div"> {
+	onRowClick?: (rowId: string) => void;
+}
 
 export default function Table({
 	header = [],
 	rows = [],
+	onRowClick,
 	noResultsMessage = "Nenhum resultado encontrado!",
+	className,
 }: Props) {
-	const loadInterval = 2;
+	const loadInterval = 10;
 	const [loaded, setLoaded] = useState<number>(loadInterval);
 	const loadedRows = rows.slice(0, loaded);
 
-	const modalContext = useModalContext();
+	const loadWhenScrollEnd = () => {
+		const isScrollEnd =
+			window.scrollY + window.innerHeight >= document.body.offsetHeight - 10;
+
+		if (isScrollEnd) {
+			if (loaded < rows.length) {
+				setLoaded(loaded + loadInterval);
+			}
+		}
+	};
 
 	useEffect(() => {
-		const loadWhenScrollEnd = () => {
-			const isScrollEnd =
-				window.scrollY + window.innerHeight >= document.body.offsetHeight - 10;
-			if (isScrollEnd) {
-				if (loaded < rows.length) {
-					setLoaded(loaded + loadInterval);
-				}
-			}
-		};
-
 		const scrollHandler = () => {
 			loadWhenScrollEnd();
 		};
 
 		window.addEventListener("scroll", scrollHandler);
 
-		if (window.scrollY === 0) {
-			loadWhenScrollEnd();
-		}
-
 		return () => window.removeEventListener("scroll", scrollHandler);
 	}, [loaded]);
 
+	useEffect(() => {
+		if (window.scrollY === 0) {
+			loadWhenScrollEnd();
+		}
+	});
+
 	return (
-		<section className="my-4 rounded-lg bg-white px-4 pb-4 shadow-sm">
-			<table className="w-full border-collapse">
-				{header && (
+		<section
+			className={twMerge("rounded-lg bg-white px-4 py-4 shadow-sm", className)}
+		>
+			<table
+				className="group w-full border-collapse"
+				data-row-interactive={onRowClick !== undefined}
+			>
+				{header.length > 0 && (
 					<thead className="[&_th]:px-2 [&_th]:py-4 [&_th]:text-zinc-700">
 						<tr className="border-b border-b-zinc-200 text-center first:[&_th]:text-start last:[&_th]:text-end">
 							{header.map((th, index) => (
@@ -57,25 +66,19 @@ export default function Table({
 						return (
 							<tr
 								key={index}
-								className="cursor-pointer border-b border-b-zinc-200 
-									text-center transition-all hover:-translate-y-[1px] hover:scale-[101%] hover:bg-zinc-100
+								className="border-b border-b-zinc-200 text-center 
+									group-data-[row-interactive=true]:cursor-pointer 
+									group-data-[row-interactive=true]:transition-all 
+									group-data-[row-interactive=true]:hover:-translate-y-[1px] 
+									group-data-[row-interactive=true]:hover:scale-[101.5%] 
+									group-data-[row-interactive=true]:hover:bg-zinc-100
                                     first:[&_td]:text-start first:[&_td]:font-bold
                                     last:[&_td]:text-end last:[&_td]:font-bold"
+								onClick={() => {
+									if (onRowClick) onRowClick(row.id);
+								}}
 							>
-								{row.columns?.map((td, index) => (
-									<td
-										key={index}
-										onClick={() => {
-											if (modalContext.list.length > 0) {
-												modalContext.closeId("tedit");
-												return;
-											}
-											modalContext.open(<ModalTransactionEdit id={"tedit"} />);
-										}}
-									>
-										{td}
-									</td>
-								))}
+								{row.columns?.map((td, index) => <td key={index}>{td}</td>)}
 							</tr>
 						);
 					})}

@@ -26,6 +26,7 @@ export default function TextareaField({
 	rows,
 	placeholder,
 	invalid = false,
+	disabled = false,
 	required = false,
 }: Props) {
 	const [input, setInput] = useState<string>(defaultValue);
@@ -52,6 +53,7 @@ export default function TextareaField({
 				minLength={minLength}
 				maxLength={maxLength}
 				invalid={invalid}
+				disabled={disabled}
 				required={required}
 			/>
 		</Input.Root>

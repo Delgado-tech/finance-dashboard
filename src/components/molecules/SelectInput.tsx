@@ -1,6 +1,5 @@
 "use client";
 
-import { RegexFunctionType } from "@/utils/regex";
 import { Triangle } from "lucide-react";
 import { ComponentProps, useEffect, useRef, useState } from "react";
 import Input from "../atoms/input";
@@ -13,37 +12,26 @@ interface Props extends ComponentProps<"input"> {
 	label?: string;
 	labelColor?: string;
 	defaultValue?: string;
-	regexFC?: RegexFunctionType;
 	invalid?: boolean;
 }
 
-export default function SelectSearchInput({
+export default function SelectInput({
 	id,
 	options,
 	actionInputValue = () => {},
 	name,
 	type = "text",
-	label = id,
+	label,
 	labelColor,
-	defaultValue = "",
-	regexFC = (value: string) => value,
+	defaultValue,
 	disabled = false,
 	minLength,
-	placeholder,
 	invalid = false,
 	required = false,
 }: Props) {
-	const [input, setInput] = useState<string>(defaultValue);
-	const [lastInput, setLastInput] = useState<string>(options[0]);
+	const [input, setInput] = useState<string>(defaultValue ?? options[0]);
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);
-
-	const filtredData = options.filter((value) => value.startsWith(input));
-
-	const setDefaultOption = () => {
-		setInput(lastInput);
-		actionInputValue(lastInput);
-	};
 
 	useEffect(() => {
 		const div = divRef.current;
@@ -54,12 +42,6 @@ export default function SelectSearchInput({
 			const target = event.target as HTMLElement;
 			if (div) {
 				if (!div.contains(target)) {
-					const inputElement = div.querySelector("input") as HTMLInputElement;
-
-					if (!options.includes(inputElement.value)) {
-						setDefaultOption();
-					}
-
 					setShowDropDown(false);
 				}
 			}
@@ -73,7 +55,7 @@ export default function SelectSearchInput({
 	return (
 		<Input.Root>
 			<div ref={divRef}>
-				{!placeholder && (
+				{label && (
 					<Input.LabelToTop
 						ltToggle={input.length > 0}
 						label={label}
@@ -87,16 +69,11 @@ export default function SelectSearchInput({
 					id={id}
 					name={name}
 					type={type}
-					className={"pr-8"}
-					placeholder={placeholder}
+					className={"cursor-pointer pr-8"}
 					onChange={(e) => {
-						actionInputValue(e.target.value);
-						setInput(regexFC(e.target.value));
+						setInput(e.target.value);
 					}}
 					onFocus={() => {
-						if (!showDropDown) {
-							setInput("");
-						}
 						setShowDropDown(true);
 					}}
 					value={input}
@@ -104,6 +81,7 @@ export default function SelectSearchInput({
 					invalid={invalid}
 					disabled={disabled}
 					required={required}
+					readOnly
 				/>
 
 				<Input.Icon
@@ -124,10 +102,6 @@ export default function SelectSearchInput({
 								input.focus();
 								return;
 							} else {
-								if (!options.includes(input.value)) {
-									setDefaultOption();
-								}
-
 								setShowDropDown(false);
 							}
 						}
@@ -140,8 +114,8 @@ export default function SelectSearchInput({
 					p-2 shadow-sm data-[show=false]:hidden"
 				>
 					<div className="max-h-[200px] overflow-auto px-2 py-2 last:[&_span]:border-none">
-						{filtredData.length > 0 ? (
-							filtredData.map((value, index) => (
+						{options.length > 0 ? (
+							options.map((value, index) => (
 								<span
 									key={index}
 									data-value={value}
@@ -150,7 +124,6 @@ export default function SelectSearchInput({
 								hover:scale-[101%] hover:bg-zinc-200"
 									onClick={() => {
 										setInput(value);
-										setLastInput(value);
 										actionInputValue(value);
 										setShowDropDown(false);
 									}}

@@ -1,10 +1,23 @@
+"use client";
+
+import { DateProvider } from "@/context/DateContext";
+import { transactions } from "@/mock/transactions.mockup";
 import Title from "../atoms/Title";
+import ExpensesBreakdown from "../organisms/ExpensesBreakdown";
+import ExpensesComparisionBarChart from "../organisms/chart/ExpensesComparisionBarChart";
 
 export default function ExpensesTemplate() {
 	return (
-		<main className="p-8">
-			<Title text="Comparação de Despesas" />
-			<Title text="Detalhamento das Despesas" />
-		</main>
+		<DateProvider>
+			<main className="p-8">
+				<Title text="Comparação de Despesas" />
+
+				<ExpensesComparisionBarChart expenses={transactions} dateChanger />
+
+				<Title text="Detalhamento das Despesas" className="pt-6" />
+
+				<ExpensesBreakdown />
+			</main>
+		</DateProvider>
 	);
 }

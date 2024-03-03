@@ -67,7 +67,7 @@ export function useRecentrilize(): IRecentrilizeContext {
 	const context = useContext(RecentrilizeContext);
 	if (!context) {
 		throw new Error(
-			"useRecentrilize deve ser usado dentro de um RecentrilizeContext",
+			"useRecentrilize deve ser usado dentro de um RecentrilizeProvider",
 		);
 	}
 
