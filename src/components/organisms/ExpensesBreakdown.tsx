@@ -1,4 +1,5 @@
 import { useDateContext } from "@/context/DateContext";
+import { useModalContext } from "@/context/ModalContext";
 import { IMockTransactions, transactions } from "@/mock/transactions.mockup";
 import { arraySum } from "@/utils/arraySum";
 import { expensesDateFilterByViewMode } from "@/utils/expensesDateFilterByViewMode";
@@ -6,8 +7,9 @@ import dFormat from "dateformat";
 import { ArrowDown, ArrowUp } from "lucide-react";
 import DynamicIcon from "../atoms/DynamicIcon";
 import Table from "./Table";
+import ModalExpensesBreakdown from "./modal/ModalExpensesBreakdown";
 
-interface ICategoryList {
+export interface ICategoryList {
 	name?: string;
 	icon?: string;
 	itens: IMockTransactions[];
@@ -15,6 +17,7 @@ interface ICategoryList {
 
 export default function ExpensesBreakdown() {
 	const categoryList: ICategoryList[] = [];
+	const modalContext = useModalContext();
 
 	const dateContext = useDateContext();
 
@@ -68,7 +71,13 @@ export default function ExpensesBreakdown() {
 		categoryList[categoryList.length - 1].itens.push(item);
 	}
 
-	const sumPricesAndCalcPercentage = (arr: IMockTransactions[]) => {
+	const sumPricesAndCalcPercentage = (
+		arr: IMockTransactions[],
+	): {
+		currentValue: number;
+		previousValue: number;
+		percentage: number | undefined;
+	} => {
 		let currentValue = 0;
 		let previousValue = 0;
 
@@ -80,7 +89,7 @@ export default function ExpensesBreakdown() {
 		}
 
 		if (currentValue === 0 || previousValue === 0) {
-			return { currentValue, previousValue, undefined };
+			return { currentValue, previousValue, percentage: undefined };
 		}
 
 		const percentage =
@@ -109,9 +118,36 @@ export default function ExpensesBreakdown() {
 			</div>
 			<div className="grid grid-cols-[repeat(auto-fit,_minmax(400px,_1fr))] gap-4">
 				{categoryList.map((category, index) => {
+					const filtredSortedItems = category.itens
+						.filter((item) => {
+							if (dateContext.dateViewMode === "year-month") {
+								return item.date?.getFullYear() === dateContext.year;
+							} else {
+								return item.date?.getMonth() === dateContext.month;
+							}
+						})
+						.sort((a, b) => Number(b.price) - Number(a.price));
+
+					const newList: ICategoryList = {
+						name: category.name,
+						icon: category.icon,
+						itens: [...filtredSortedItems],
+					};
+
 					return (
 						<div
 							key={index}
+							onClick={() => {
+								modalContext.open(
+									<ModalExpensesBreakdown
+										id="category_expenses_list"
+										categoryList={newList}
+										dateViewMode={dateContext.dateViewMode}
+										year={dateContext.year}
+										month={dateContext.month}
+									/>,
+								);
+							}}
 							className="group relative cursor-pointer select-none rounded-lg bg-zinc-100 shadow-md transition-all hover:scale-[101%]"
 						>
 							{/* Hover */}
@@ -160,31 +196,21 @@ export default function ExpensesBreakdown() {
 
 							<Table
 								className="rounded-t-none py-2 shadow-none"
-								rows={category.itens
-									.filter((item) => {
-										if (dateContext.dateViewMode === "year-month") {
-											return item.date?.getFullYear() === dateContext.year;
-										} else {
-											return item.date?.getMonth() === dateContext.month;
-										}
-									})
-									.sort((a, b) => Number(b.price) - Number(a.price))
-									.splice(0, 2)
-									.map((item, index) => {
-										const formatedPrice = (Number(item.price) / 100).toFixed(2);
-										return {
-											id: String(index),
-											columns: [
-												<span>{item.service}</span>,
-												<span className="flex flex-col">
-													<span>R$ {formatedPrice}</span>
-													<span className="text-sm font-normal text-zinc-400">
-														{dFormat(item.date, "dd/mm/yyyy")}
-													</span>
-												</span>,
-											],
-										};
-									})}
+								rows={filtredSortedItems.splice(0, 2).map((item, index) => {
+									const formatedPrice = (Number(item.price) / 100).toFixed(2);
+									return {
+										id: String(index),
+										columns: [
+											<span key={index}>{item.service}</span>,
+											<span key={index} className="flex flex-col">
+												<span>R$ {formatedPrice}</span>
+												<span className="text-sm font-normal text-zinc-400">
+													{dFormat(item.date, "dd/mm/yyyy")}
+												</span>
+											</span>,
+										],
+									};
+								})}
 							/>
 						</div>
 					);

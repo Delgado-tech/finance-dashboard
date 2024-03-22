@@ -7,11 +7,12 @@ import Input from "../atoms/input";
 interface Props extends ComponentProps<"input"> {
 	id: string;
 	options: string[];
-	actionInputValue?: (value: string) => void;
+	actionInputValue?: (value: string, index?: number) => void;
+	selectedOptionId?: number;
 	name?: string;
 	label?: string;
 	labelColor?: string;
-	defaultValue?: string;
+	defaultOption?: number;
 	invalid?: boolean;
 }
 
@@ -19,17 +20,14 @@ export default function SelectInput({
 	id,
 	options,
 	actionInputValue = () => {},
+	selectedOptionId = 0,
 	name,
-	type = "text",
 	label,
 	labelColor,
-	defaultValue,
 	disabled = false,
-	minLength,
 	invalid = false,
-	required = false,
 }: Props) {
-	const [input, setInput] = useState<string>(defaultValue ?? options[0]);
+	const [input, setInput] = useState<string>("");
 	const [showDropDown, setShowDropDown] = useState<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);
 
@@ -52,61 +50,62 @@ export default function SelectInput({
 		return () => document.removeEventListener("click", focusOutHandler);
 	}, [showDropDown]);
 
+	useEffect(() => {
+		setInput(options[selectedOptionId] ?? "");
+	}, [selectedOptionId, options]);
+
 	return (
 		<Input.Root>
 			<div ref={divRef}>
-				{label && (
-					<Input.LabelToTop
-						ltToggle={input.length > 0}
-						label={label}
-						htmlFor={id}
-						invalid={invalid}
-						labelColor={labelColor}
-					/>
-				)}
-
-				<Input.Body
-					id={id}
-					name={name}
-					type={type}
-					className={"cursor-pointer pr-8"}
-					onChange={(e) => {
-						setInput(e.target.value);
+				<div
+					onClick={() => {
+						setShowDropDown((prev) => !prev);
 					}}
-					onFocus={() => {
-						setShowDropDown(true);
-					}}
-					value={input}
-					minLength={minLength}
-					invalid={invalid}
-					disabled={disabled}
-					required={required}
-					readOnly
-				/>
-
-				<Input.Icon
-					className={disabled ? "cursor-default" : ""}
-					icon={
-						<Triangle
-							data-show={showDropDown}
-							className="size-4 transition-all data-[show=false]:rotate-180"
+				>
+					{label && (
+						<Input.LabelToTop
+							ltToggle={input.length > 0}
+							isFocus={showDropDown}
+							className="[&>label]:cursor-pointer"
+							label={label}
+							htmlFor={id}
+							invalid={invalid}
+							labelColor={labelColor}
 						/>
-					}
-					action={() => {
-						const div = divRef.current;
+					)}
 
-						if (div) {
-							const input = div.querySelector("input")!;
+					<Input.StaticText
+						id={id}
+						name={name}
+						className={"cursor-pointer select-none pr-8"}
+						onChange={(e) => {
+							setInput(e.target.value);
+						}}
+						value={input}
+						isFocus={showDropDown}
+						invalid={invalid}
+						disabled={disabled}
+					/>
 
-							if (!showDropDown) {
-								input.focus();
-								return;
-							} else {
-								setShowDropDown(false);
-							}
+					<Input.Icon
+						className={disabled ? "cursor-default" : ""}
+						icon={
+							<Triangle
+								data-show={showDropDown}
+								className="size-4 transition-all data-[show=false]:rotate-180 data-[show=true]:text-teal-600"
+							/>
 						}
-					}}
-				/>
+						action={() => {
+							if (!showDropDown) {
+								const input = divRef.current!.querySelector(
+									"input",
+								) as HTMLInputElement;
+
+								input.focus();
+							}
+						}}
+					/>
+				</div>
 
 				<div
 					data-show={showDropDown}
@@ -119,12 +118,13 @@ export default function SelectInput({
 								<span
 									key={index}
 									data-value={value}
+									data-selected={input === value}
 									className="block w-full cursor-pointer select-none truncate 
-								border-b border-zinc-200 p-2 transition-all 
-								hover:scale-[101%] hover:bg-zinc-200"
+										border-b border-zinc-200 p-2 transition-all hover:scale-[101%]
+										hover:bg-zinc-200 data-[selected=true]:font-semibold data-[selected=true]:text-teal-600"
 									onClick={() => {
 										setInput(value);
-										actionInputValue(value);
+										actionInputValue(value, index);
 										setShowDropDown(false);
 									}}
 								>

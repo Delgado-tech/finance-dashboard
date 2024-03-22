@@ -26,6 +26,7 @@ export default function InputFieldIcon({
 	defaultValue = "",
 	className,
 	onKeyDown = () => {},
+	onChange = () => {},
 	invalid = false,
 	required = false,
 }: Props) {
@@ -51,7 +52,10 @@ export default function InputFieldIcon({
 				value={value}
 				className={twMerge("pr-10", className)}
 				placeholder={placeholder}
-				onChange={(e) => setInput(e.target.value)}
+				onChange={(e) => {
+					setInput(e.target.value);
+					onChange(e);
+				}}
 				onKeyDown={onKeyDown}
 				invalid={invalid}
 				required={required}

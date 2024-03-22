@@ -13,3 +13,16 @@ export function getMonthNames({ format = "short" }: IOptions): string[] {
 
 	return monthNames;
 }
+
+export function getMonthName(
+	monthNumber: number,
+	{ format = "short" }: IOptions = {},
+): string {
+	const month = new Date(0, monthNumber)
+		.toLocaleString(window.navigator.language, { month: format })
+		.replace(".", "");
+
+	const formatedMonth = month.charAt(0).toUpperCase() + month.slice(1);
+
+	return formatedMonth;
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { RegexFunctionType } from "@/utils/regex";
-import { ComponentProps, useState } from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import Input from "../atoms/input";
 
 interface Props extends ComponentProps<"input"> {
@@ -29,6 +29,10 @@ export default function InputField({
 	required = false,
 }: Props) {
 	const [input, setInput] = useState<string>(defaultValue);
+
+	useEffect(() => {
+		setInput(defaultValue);
+	}, [defaultValue]);
 
 	return (
 		<Input.Root>

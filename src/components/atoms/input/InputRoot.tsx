@@ -6,5 +6,5 @@ interface Props extends ComponentProps<"div"> {
 }
 
 export default function InputRoot({ children, className }: Props) {
-	return <div className={twMerge("relative", className)}>{children}</div>;
+	return <div className={twMerge("relative w-full", className)}>{children}</div>;
 }

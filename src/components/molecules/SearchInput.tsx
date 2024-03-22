@@ -53,12 +53,9 @@ export default function SearchInput({
 					className,
 				)}
 				placeholder={placeholder}
-				onKeyDown={(e) => {
-					if (e.key === "Enter") {
-						setInputHandler();
-					}
+				onChange={() => {
+					setInputHandler();
 				}}
-				iconAction={() => setInputHandler()}
 				defaultValue={input || ""}
 				icon={<Search />}
 			/>

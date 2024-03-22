@@ -25,7 +25,7 @@ export default async function RootLayout({
 	return (
 		<html lang="pt-br">
 			<body className={inter.className}>
-				<AuthLayoutTemplate children={children} username={username} />
+				<AuthLayoutTemplate username={username}>{children}</AuthLayoutTemplate>
 			</body>
 		</html>
 	);

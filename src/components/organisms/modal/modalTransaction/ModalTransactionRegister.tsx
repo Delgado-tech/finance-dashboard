@@ -33,7 +33,7 @@ export default function ModalTransactionRegister({ id, className }: Props) {
 					<Button.Root
 						className="w-full bg-emerald-500 hover:bg-emerald-400"
 						onClick={() => {
-							//TODO
+							//TODO: salvar dados na api
 							modalContext.closeId(id);
 						}}
 					>

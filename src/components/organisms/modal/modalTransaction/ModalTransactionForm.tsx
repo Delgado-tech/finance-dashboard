@@ -119,7 +119,7 @@ export default function ModalTransactionForm({
 				disabled={disabled}
 				maxLength={256}
 			/>
-			<div className="flex gap-2">
+			<div className="grid grid-cols-2 gap-2">
 				<div className="flex flex-col gap-2">
 					<SelectSearchInput
 						id={"method"}

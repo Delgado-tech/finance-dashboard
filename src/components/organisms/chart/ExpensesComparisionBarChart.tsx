@@ -144,16 +144,18 @@ export default function ExpensesComparisionBarChart({
 		<div className="rounded-lg bg-white p-4 shadow-sm">
 			{dateChanger && <TransactionDateChanger />}
 			<div className="flex items-center justify-between gap-4">
-				<SelectInput
-					id={"comparation-type"}
-					options={comparationType}
-					actionInputValue={(val) => {
-						const mode: DateViewMode =
-							val === comparationType[0] ? "year-month" : "month-week";
-						dateContext.setDateViewMode(mode);
-						setXAxisCategoryNameByMode(mode);
-					}}
-				/>
+				<span className="w-full max-w-[250px]">
+					<SelectInput
+						id={"comparation-type"}
+						options={comparationType}
+						actionInputValue={(val) => {
+							const mode: DateViewMode =
+								val === comparationType[0] ? "year-month" : "month-week";
+							dateContext.setDateViewMode(mode);
+							setXAxisCategoryNameByMode(mode);
+						}}
+					/>
+				</span>
 				<div className="flex select-none gap-4">
 					<span className="flex items-center gap-2">
 						<span className="block size-4 rounded-sm bg-[#c0c0c0]" />

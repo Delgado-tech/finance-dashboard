@@ -58,7 +58,7 @@ export default function ModalTransactionEdit({
 										</>
 									}
 									onConfirm={() => {
-										//TODO deletar na API
+										//TODO: deletar na API
 										modalContext.closeId("m-delete");
 										modalContext.closeId(id);
 									}}
