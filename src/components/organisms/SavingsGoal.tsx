@@ -18,7 +18,7 @@ export default function SavingsGoal() {
 	}, []);
 
 	return (
-		<div className="max-w-[500px] rounded-lg bg-white p-8 text-zinc-800">
+		<div className="w-full max-w-[500px] rounded-lg bg-white p-8 text-zinc-800">
 			<div className="grid grid-cols-2 items-center border-b border-zinc-200 pb-4">
 				<h3 className="text-xl font-semibold text-zinc-700">Meta de Gastos</h3>
 				<SelectInput id={"date"} options={[]} />

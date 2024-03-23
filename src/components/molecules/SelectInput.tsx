@@ -52,7 +52,7 @@ export default function SelectInput({
 
 	useEffect(() => {
 		setInput(options[selectedOptionId] ?? "");
-	}, [selectedOptionId, options]);
+	}, []);
 
 	return (
 		<Input.Root>

@@ -8,14 +8,19 @@ import { expensesDateFilterByViewMode } from "@/utils/expensesDateFilterByViewMo
 import { getMonthNames } from "@/utils/getMonthNames";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import chartComparisionConfig from "./configTemplates/chartComparisionConfig";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 interface Props {
+	chartType?: "bar" | "area";
 	expenses: IMockTransactions[];
+	strokeWidth?: number;
 	dateChanger?: boolean;
 }
 
-export default function ExpensesComparisionBarChart({
+export default function ExpensesComparisionChart({
+	chartType = "bar",
+	strokeWidth,
 	expenses,
 	dateChanger = false,
 }: Props) {
@@ -54,20 +59,15 @@ export default function ExpensesComparisionBarChart({
 		month: dateContext.month,
 	});
 
-	const options: ApexCharts.ApexOptions = {
+	const options: ApexCharts.ApexOptions = chartComparisionConfig({
+		categories: xAxisCategoryNames,
 		chart: {
-			type: "bar",
+			type: chartType,
 			toolbar: {
 				show: false,
 			},
 		},
-		plotOptions: {
-			bar: {
-				borderRadius: 5,
-				borderRadiusApplication: "end",
-				columnWidth: "55%",
-			},
-		},
+		strokeWidth: strokeWidth,
 		series: [
 			{
 				name:
@@ -86,14 +86,6 @@ export default function ExpensesComparisionBarChart({
 				color: "#0d9488",
 			},
 		],
-		xaxis: {
-			categories: xAxisCategoryNames,
-			labels: {
-				style: {
-					colors: "#8b8b8b",
-				},
-			},
-		},
 		yaxis: {
 			max: (value) => value * 1.25,
 			show: filtredExpenses.length > 0,
@@ -105,27 +97,7 @@ export default function ExpensesComparisionBarChart({
 				},
 			},
 		},
-		stroke: {
-			show: true,
-			width: 4,
-			colors: ["transparent"],
-		},
-		grid: { borderColor: "#e5e5e5" },
-		legend: {
-			show: false,
-		},
-		dataLabels: {
-			enabled: false,
-		},
-		states: {
-			hover: {
-				filter: {
-					type: "darken",
-					value: 0.6,
-				},
-			},
-		},
-	};
+	});
 
 	const comparationType = ["Comparação mensal", "Comparação semanal"];
 
@@ -141,7 +113,7 @@ export default function ExpensesComparisionBarChart({
 	};
 
 	return (
-		<div className="rounded-lg bg-white p-4 shadow-sm">
+		<div className="w-full rounded-lg bg-white p-4 shadow-sm">
 			{dateChanger && <TransactionDateChanger />}
 			<div className="flex items-center justify-between gap-4">
 				<span className="w-full max-w-[250px]">

@@ -4,7 +4,7 @@ import { DateProvider } from "@/context/DateContext";
 import { transactions } from "@/mock/transactions.mockup";
 import Title from "../atoms/Title";
 import ExpensesBreakdown from "../organisms/ExpensesBreakdown";
-import ExpensesComparisionBarChart from "../organisms/chart/ExpensesComparisionBarChart";
+import ExpensesComparisionChart from "../organisms/chart/ExpensesComparisionChart";
 
 export default function ExpensesTemplate() {
 	return (
@@ -12,7 +12,7 @@ export default function ExpensesTemplate() {
 			<main className="p-8">
 				<Title text="Comparação de Despesas" />
 
-				<ExpensesComparisionBarChart expenses={transactions} dateChanger />
+				<ExpensesComparisionChart expenses={transactions} dateChanger />
 
 				<Title text="Detalhamento das Despesas" className="pt-6" />
 
